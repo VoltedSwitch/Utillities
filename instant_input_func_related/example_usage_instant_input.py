@@ -1,6 +1,14 @@
 import random
 from instant_input_func import instant_input
 
+DEFAULT_ARROW_KEYS = {
+    "\x1b[A": "up",
+    "\x1b[B": "down",
+    "\x1b[C": "right",
+    "\x1b[D": "left",
+    " ": "space"
+}
+
 right_left_mapped = {
     "right": "left",
     "left": "right"
@@ -10,7 +18,7 @@ while True:
     right_or_left = random.choice(["right", "left"])
 
     print("You are in a coridoor, do you go left or right?")
-    direction = instant_input("> ", timeout=5)
+    direction = instant_input("> ", timeout=5, special_keys=DEFAULT_ARROW_KEYS)
     print()
     if direction == right_or_left:
         print("You have fallen to your death")
