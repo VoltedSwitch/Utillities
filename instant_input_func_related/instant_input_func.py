@@ -3,8 +3,9 @@ import termios
 import tty
 import select
 
-def instant_input(prompt, timeout=None, special_keys=None):
-    print(prompt, end="", flush=True)
+def instant_input(prompt=None, timeout=None, special_keys=None):
+    if prompt:
+        print(prompt, end="", flush=True)
 
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
