@@ -3,14 +3,6 @@ import termios
 import tty
 import select
 
-DEFAULT_ARROW_KEYS = {
-    "\x1b[A": "up",
-    "\x1b[B": "down",
-    "\x1b[C": "right",
-    "\x1b[D": "left",
-    " ": "space"
-}
-
 def instant_input(prompt, timeout=None, special_keys=None):
     print(prompt, end="", flush=True)
 
