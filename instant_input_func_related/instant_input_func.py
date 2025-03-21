@@ -3,7 +3,7 @@ import termios
 import tty
 import select
 
-ARROW_KEYS = {
+DEFAULT_ARROW_KEYS = {
     "\x1b[A": "up",
     "\x1b[B": "down",
     "\x1b[C": "right",
@@ -11,7 +11,7 @@ ARROW_KEYS = {
     " ": "space"
 }
 
-def instant_input(prompt, timeout=None):
+def instant_input(prompt, timeout=None, special_keys=None):
     print(prompt, end="", flush=True)
 
     fd = sys.stdin.fileno()
@@ -31,8 +31,11 @@ def instant_input(prompt, timeout=None):
         if key_pressed == "\x1b":
             key_pressed += sys.stdin.read(2)  # Read the next two bytes
 
-        # Always check the key against the ARROW_KEYS mapping
-        return ARROW_KEYS.get(key_pressed, key_pressed)  # For normal or special keys
+        # Use the provided special_keys dictionary, or default to None
+        if special_keys is None:
+            return key_pressed  # Return raw keypress if no special keys are set
+        else:
+            return special_keys.get(key_pressed, key_pressed)  # Apply mapping if provided
 
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
