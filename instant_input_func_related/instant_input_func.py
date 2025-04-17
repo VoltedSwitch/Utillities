@@ -8,6 +8,12 @@ def instant_input(
     timeout: int | float | None = None, 
     special_keys: dict[str, str] | None = None
     ) -> str:
+
+    """
+    Reads a single character from standard input without waiting for the Enter key.
+    If a timeout is specified, it will return "no key pressed" if no key is pressed within the timeout period.
+    If special_keys is provided, it will map certain key combinations to specific strings.
+    """
     
     if prompt:
         print(prompt, end="", flush=True)
